@@ -6,7 +6,6 @@ exports.article_list_get = (req, res) => {
   res.send("NOT IMPLEMENTED: Article list GET");
 };
 
-
 // GET an article (with its comments)
 exports.article_get = (req, res) => {
   res.send("NOT IMPLEMENTED: Article GET");
@@ -14,7 +13,9 @@ exports.article_get = (req, res) => {
 
 // POST a new article
 exports.article_post = (req, res) => {
-  res.send("NOT IMPLEMENTED: Article POST");
+  const article = req.body;
+  article.timestamp = new Date();
+  res.send(article);
 };
 
 // PUT (UPDATE) an article
@@ -26,5 +27,3 @@ exports.article_update = (req, res) => {
 exports.article_delete = (req, res) => {
   res.send("NOT IMPLEMENTED: Article DELETE");
 };
-
-

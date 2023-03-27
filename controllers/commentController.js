@@ -9,7 +9,7 @@ exports.comment_post = (req, res) => {
 
 // DELETE a comment
 exports.comment_delete = (req, res) => {
-  res.send("NOT IMPLEMENTED: Comment UPDATE");
+  res.send("NOT IMPLEMENTED: Comment DELETE");
 };
 
 

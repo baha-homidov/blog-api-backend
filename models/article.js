@@ -6,7 +6,6 @@ const ArticleSchema = new Schema({
   title: { type: String, required: true },
   text: { type: String, required: true },
   timestamp: { type: Date, required: true },
-
 })
 
 // Virtual for Article's URL
