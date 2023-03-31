@@ -12,7 +12,8 @@ var app = express();
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://admin:baha270228@cluster0.6bede1i.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB =
+  "mongodb+srv://admin:baha270228@cluster0.6bede1i.mongodb.net/?retryWrites=true&w=majority";
 
 main().catch((err) => console.log(err));
 async function main() {
@@ -37,6 +38,8 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
+
+
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -45,7 +48,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.json({error: err.message});
 });
 
 module.exports = app;

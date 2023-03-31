@@ -13,6 +13,9 @@ router.post('/', article_controller.article_post);
 /* GET article. */
 router.get('/:id', article_controller.article_get);
 
+/* GET article list. */
+router.get('/', article_controller.article_list_get);
+
 /* PUT article. */
 router.put('/:id', article_controller.article_update);
 
