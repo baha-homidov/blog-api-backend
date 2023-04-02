@@ -70,6 +70,23 @@ exports.comment_post = [
 ];
 
 // DELETE a comment
-exports.comment_delete = (req, res) => {
-  res.send("NOT IMPLEMENTED: Comment DELETE");
+exports.comment_delete = (req, res, next) => {
+  if (!isObjectIdOrHexString(req.params.id)) {
+    return res.status(204).json({ response: "Success" });
+  }
+
+  async.parallel(
+    {
+      commenet(callback) {
+        Comment.deleteOne({}).exec(callback);
+      },
+    },
+    (err, result) => {
+      if (err) {
+        return next(err);
+      }
+      // Successful so return
+      return res.json({ response: "success" });
+    }
+  );
 };

@@ -144,7 +144,7 @@ exports.article_delete = (req, res, next) => {
     },
     (err, results) => {
       if (err) {
-        next(err);
+        return next(err);
       }
       // Seccessful so return
       return res.json({ response: "success" });
