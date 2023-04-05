@@ -9,21 +9,17 @@ const article = require("../models/article");
 // POST a comment
 exports.comment_post = [
   // Validate and sanitize data
-  check("title")
-    .isLength({ min: 1 })
-    .withMessage("Title must not be empty")
-    .isLength({ max: 100 })
-    .withMessage("Title must bo shorter than 100 charachters"),
+
   check("author")
     .isLength({ min: 1 })
-    .withMessage("Title must not be empty")
+    .withMessage("Author must not be empty")
     .isLength({ max: 50 })
-    .withMessage("Title must bo shorter than 100 charachters"),
+    .withMessage("Author must bo shorter than 100 charachters"),
   check("text")
     .isLength({ min: 1 })
-    .withMessage("Title must not be empty")
+    .withMessage("Text must not be empty")
     .isLength({ max: 250 })
-    .withMessage("Title must bo shorter than 250 charachters"),
+    .withMessage("Text must bo shorter than 250 charachters"),
   // Process request after validation and sanitization
   (req, res, next) => {
     const errors = validationResult(req);
@@ -35,7 +31,7 @@ exports.comment_post = [
     }
 
     const comment = new Comment({
-      title: req.body.title,
+
       author: req.body.author,
       text: req.body.text,
       timestamp: new Date(),
