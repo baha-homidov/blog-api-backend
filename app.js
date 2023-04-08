@@ -3,12 +3,15 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
 var indexRouter = require("./routes/index");
 var articleRouter = require("./routes/article");
 const mongoose = require("mongoose");
+// TODO: remove when deploying
+var cors = require("cors");
 
 var app = express();
+// TODO: remove when deploying
+app.use(cors());
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
@@ -38,8 +41,6 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-
-
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
@@ -48,7 +49,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.json({error: err.message});
+  res.json({ error: err.message });
 });
 
 module.exports = app;

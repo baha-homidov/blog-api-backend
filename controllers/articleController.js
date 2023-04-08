@@ -20,7 +20,7 @@ exports.article_list_get = (req, res) => {
 exports.article_get = (req, res, next) => {
   // validate if request.body.id is a valid Mongo ObjectId
   if (!isObjectIdOrHexString(req.params.id)) {
-    return res.status(400).json({ error: "Invalid article ID" });
+    return res.status(404).json({ error: "Not Found" });
   }
 
   async.parallel(
@@ -77,7 +77,7 @@ exports.article_post = [
         return next(err);
       }
       // Sucessfull
-     return  res.json(article);
+      return res.json(article);
     });
   },
 ];
