@@ -1,17 +1,23 @@
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
-var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var articleRouter = require("./routes/article");
+var authRouter = require("./routes/auth");
 const mongoose = require("mongoose");
 // TODO: remove when deploying
 var cors = require("cors");
+// Auth libs
+var cookieParser = require("cookie-parser");
+const passport = require("passport");
+const passportLocal = require("passport-local").Strategy;
+const bcrypt = require("bcryptjs");
+const expressSession = require("express-session");
 
 var app = express();
 // TODO: remove when deploying
-app.use(cors());
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
@@ -30,11 +36,21 @@ app.set("view engine", "ejs");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(
+  expressSession({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser("secretcode"));
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(passport.initialize());
+app.use(passport.session());
+require("./configs/passportConfig")(passport);
 app.use("/", indexRouter);
 app.use("/article", articleRouter);
+app.use("/auth", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
