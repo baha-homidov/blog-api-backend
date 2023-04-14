@@ -24,33 +24,41 @@ exports.register_post = (req, res, next) => {
       console.log("Username already exists");
     }
     if (!doc) {
-      const hashedPassword = bcrypt.hash(
-        req.body.password,
-        10,
-        (err, hashedPassword) => {
-          // if err, do something
-          if (err) {
-            next(err);
-            return;
-          }
-          const newUser = new User({
-            username: req.body.username,
-            password: hashedPassword,
-          });
-
-          newUser.save((err) => {
-            if (err) {
-              return next(err);
-            }
-            // Sucessfull
-            return res.json({ response: "User saved" });
-          });
+      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+        // if err, do something
+        if (err) {
+          next(err);
+          return;
         }
-      );
+        const newUser = new User({
+          username: req.body.username,
+          password: hashedPassword,
+        });
+
+        newUser.save((err) => {
+          if (err) {
+            return next(err);
+          }
+          // Sucessfull
+          return res.json({ response: "User saved" });
+        });
+      });
     }
   });
 };
 
 exports.user_get = (req, res, next) => {
   res.json({ user: req.user });
+};
+
+exports.logout_post = (req, res, next) => {
+  console.log(req.logout);
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.json({
+      response: "success",
+    });
+  });
 };

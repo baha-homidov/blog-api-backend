@@ -45,8 +45,8 @@ app.use(
 );
 app.use(cookieParser("secretcode"));
 app.use(express.static(path.join(__dirname, "public")));
-app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.initialize());
 require("./configs/passportConfig")(passport);
 app.use("/", indexRouter);
 app.use("/article", articleRouter);
