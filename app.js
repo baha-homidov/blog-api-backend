@@ -7,6 +7,7 @@ var articleRouter = require("./routes/article");
 var authRouter = require("./routes/auth");
 const mongoose = require("mongoose");
 var cors = require("cors");
+require("dotenv").config();
 // Auth libs
 var cookieParser = require("cookie-parser");
 const passport = require("passport");
@@ -20,8 +21,7 @@ app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
-const mongoDB =
-  "mongodb+srv://admin:baha270228@cluster0.6bede1i.mongodb.net/?retryWrites=true&w=majority";
+const mongoDB = process.env.MONGODB_KEY;
 
 main().catch((err) => console.log(err));
 async function main() {
