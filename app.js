@@ -6,7 +6,6 @@ var indexRouter = require("./routes/index");
 var articleRouter = require("./routes/article");
 var authRouter = require("./routes/auth");
 const mongoose = require("mongoose");
-// TODO: remove when deploying
 var cors = require("cors");
 // Auth libs
 var cookieParser = require("cookie-parser");
@@ -16,7 +15,7 @@ const bcrypt = require("bcryptjs");
 const expressSession = require("express-session");
 
 var app = express();
-// TODO: remove when deploying
+
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // Set up mongoose connection
