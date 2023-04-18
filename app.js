@@ -17,7 +17,15 @@ const expressSession = require("express-session");
 
 var app = express();
 
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(cors({ origin: "https://blog-api-c17ae.web.app/", credentials: true }));
+
+// Set CORS headers
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://blog-api-c17ae.web.app"); // Set the appropriate domain here
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 // Set up mongoose connection
 mongoose.set("strictQuery", false);
